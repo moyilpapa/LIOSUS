@@ -155,15 +155,15 @@ export const StoryEngine: React.FC = () => {
                   <VoiceVisualizer isRecording={isRecording} />
                 </div>
 
-                <div className="relative group">
+                <div className="relative group frosted-glass-sm rounded-3xl border border-white/5 overflow-hidden">
                   <textarea
                     value={state.rawInput}
                     onChange={(e) => setState(prev => ({ ...prev, rawInput: e.target.value, inputType: 'text' }))}
                     placeholder={isRecording ? "Listening to your story..." : "A trip to the park, a funny bedtime moment, or a lesson learned..."}
-                    className="w-full h-48 bg-white/5 border border-white/5 rounded-3xl p-6 text-xl font-light focus:outline-none focus:border-cyan-500/50 transition-all placeholder:text-slate-600 resize-none"
+                    className="w-full h-48 bg-transparent p-6 pb-24 text-xl font-light focus:outline-none transition-all placeholder:text-slate-600 resize-none overflow-y-auto custom-scrollbar"
                   />
                   
-                  <div className="absolute bottom-4 right-4 flex items-center gap-3">
+                  <div className="absolute bottom-4 right-4 flex items-center gap-3 z-10">
                     <button
                       onClick={toggleRecording}
                       className={`p-4 rounded-2xl transition-all frosted-glass-sm ${isRecording ? 'text-red-400 border-red-500/30' : 'text-cyan-400 border-cyan-500/30 hover:bg-cyan-500/10'}`}
@@ -173,7 +173,7 @@ export const StoryEngine: React.FC = () => {
                     <button
                       onClick={handleProcess}
                       disabled={state.isProcessing || !state.rawInput.trim()}
-                      className="accent-gradient px-10 py-5 rounded-full text-white font-bold tracking-[0.2em] uppercase text-[10px] shadow-[0_10px_40px_rgba(8,145,178,0.3)] hover:scale-105 active:scale-95 disabled:opacity-20 transition-all flex items-center"
+                      className="accent-gradient px-10 py-5 rounded-full text-white font-bold tracking-[0.2em] uppercase text-[10px] shadow-[0_10px_40px_rgba(8,145,178,0.3)] hover:scale-105 hover:brightness-110 hover:shadow-cyan-500/40 active:scale-95 disabled:opacity-20 transition-all flex items-center"
                     >
                       {state.isProcessing ? <RefreshCw className="w-5 h-5 animate-spin" /> : <><Wand2 className="w-4 h-4 mr-2" /> Generate Movie</>}
                     </button>
@@ -235,7 +235,7 @@ export const StoryEngine: React.FC = () => {
               <button
                 onClick={() => setShowPlayer(true)}
                 disabled={Object.keys(state.generatedImages).length === 0}
-                className="accent-gradient px-12 py-5 rounded-full text-white font-bold tracking-[0.2em] uppercase text-[10px] shadow-[0_10px_40px_rgba(8,145,178,0.3)] hover:scale-105 active:scale-95 disabled:opacity-20 transition-all flex items-center"
+                className="accent-gradient px-12 py-5 rounded-full text-white font-bold tracking-[0.2em] uppercase text-[10px] shadow-[0_10px_40px_rgba(8,145,178,0.3)] hover:scale-105 hover:brightness-110 hover:shadow-cyan-500/40 active:scale-95 disabled:opacity-20 transition-all flex items-center"
               >
                 <Film className="w-4 h-4 mr-2" />
                 Watch Movie
