@@ -1,0 +1,6 @@
+{
+  "name": "Liosus",
+  "description": "A 2099-standard AI multimodal storytelling engine that converts parent memories into cinematic children's movies.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["AI Storytelling", "Voice Recognition", "Image Generation", "Narration"]
+}

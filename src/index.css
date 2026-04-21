@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;400;500;700&family=JetBrains+Mono&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --neon-blue: #22d3ee;
+  --neon-purple: #9333ea;
+  --frosted-white: rgba(255, 255, 255, 0.05);
+  --frosted-border: rgba(255, 255, 255, 0.1);
+}
+
+@layer base {
+  body {
+    @apply bg-[#050308] text-white overflow-hidden selection:bg-cyan-500/30;
+    position: relative;
+  }
+}
+
+@layer components {
+  .frosted-glass {
+    @apply backdrop-blur-3xl bg-white/5 border border-white/10 shadow-2xl;
+  }
+
+  .frosted-glass-sm {
+    @apply backdrop-blur-md bg-white/5 border border-white/10;
+  }
+
+  .accent-gradient {
+    @apply bg-gradient-to-tr from-cyan-400 to-purple-600;
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+  }
+
+  .holographic-glow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .holographic-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      rgba(34, 211, 238, 0.05) 50%,
+      transparent 100%
+    );
+    animation: hologlow 10s linear infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes hologlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
