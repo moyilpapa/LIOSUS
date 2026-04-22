@@ -82,7 +82,6 @@ export const generateSceneImage = async (prompt: string, style: string): Promise
       },
       config: {
         systemInstruction: "You are a child-safe image architect. You generate beautiful, magical, G-rated cinematic art. You MUST filter out all adult content, nudity, or suggestive elements. Every character must be fully and appropriately dressed for a children's story.",
-        responseModalities: ["IMAGE"],
         imageConfig: {
           aspectRatio: "16:9",
         }
@@ -90,7 +89,10 @@ export const generateSceneImage = async (prompt: string, style: string): Promise
     });
 
     const part = response.candidates?.[0]?.content?.parts?.find(p => !!p.inlineData);
-    if (!part?.inlineData?.data) throw new Error("No image data returned from Gemini");
+    if (!part?.inlineData?.data) {
+      console.error("Gemini failed to return image data. Parts:", response.candidates?.[0]?.content?.parts);
+      throw new Error("No image data returned from Gemini");
+    }
     return `data:image/png;base64,${part.inlineData.data}`;
   } catch (error: any) {
     if (error?.message?.includes('quota') || error?.message?.includes('RESOURCE_EXHAUSTED')) {
@@ -133,12 +135,14 @@ export const generateSceneNarration = async (text: string, emotion: Emotion): Pr
 
     const part = response.candidates?.[0]?.content?.parts?.find(p => !!p.inlineData);
     const base64Audio = part?.inlineData?.data;
+    const mimeType = part?.inlineData?.mimeType || 'audio/mp3';
     
-    if (!base64Audio || base64Audio.length < 100) {
-      throw new Error("No valid audio data returned from Gemini");
+    if (!base64Audio || base64Audio.length < 50) {
+      console.error("Gemini failed to return audio data. Parts:", response.candidates?.[0]?.content?.parts);
+      throw new Error(`Invalid audio data: ${base64Audio ? 'too short' : 'missing'}`);
     }
     
-    return `data:audio/mp3;base64,${base64Audio}`;
+    return `data:${mimeType};base64,${base64Audio}`;
   } catch (error: any) {
     if (error?.message?.includes('quota') || error?.message?.includes('RESOURCE_EXHAUSTED')) {
       console.warn("TTS Quota Exceeded. Narration will be disabled for this scene.");

@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 
 export const MODELS = {
   TEXT: "gemini-3-flash-preview",
-  IMAGE: "gemini-2.5-flash-image", 
+  IMAGE: "gemini-3.1-flash-image-preview", 
   TTS: "gemini-3.1-flash-tts-preview"
 };
 
